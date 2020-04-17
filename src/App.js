@@ -22,9 +22,11 @@ export default function App() {
   }
 
   async function handleLikeRepository(id) {
+    const repositoryIndex = repository.findIndex(rep => rep.id === id);
     const response = await api.post(`repositories/${id}/like`);
-    loadRepository();
-
+    const data = repository;
+    data.splice(repositoryIndex,1,response.data);
+    setRepository([...data]);
   }
 
   useEffect(() => {
